@@ -9,7 +9,7 @@ SECRET_KEY = 'django-insecure-change-this-in-production-abc123xyz'
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://webportfolio-1-7x9y.onrender.com/']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
