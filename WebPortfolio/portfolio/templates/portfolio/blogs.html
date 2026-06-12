@@ -1,0 +1,81 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %}Blog | Portfolio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <a href="{% url 'home' %}" class="back-btn">← Về trang chủ</a>
+  <h2 class="font-weight-bold text-dark mb-1">Tất cả bài viết</h2>
+  <p class="text-muted mb-4">Chia sẻ kiến thức, kinh nghiệm và góc nhìn về công nghệ</p>
+
+  <!-- Search -->
+  <form method="GET" class="mb-4">
+    <div class="input-group" style="max-width:500px">
+      <input type="text" name="q" value="{{ q }}" class="form-control"
+             placeholder="Tìm kiếm theo tiêu đề, nội dung...">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+      </div>
+    </div>
+  </form>
+
+  <p class="text-muted small mb-3">{% if total > 0 %}Tìm thấy {{ total }} bài viết{% endif %}</p>
+
+  <!-- Grid -->
+  <div class="row">
+    {% for blog in page_obj %}
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0 h-100 portfolio-card">
+        {% if blog.thumbnail %}
+          <img src="{{ blog.thumbnail.url }}" class="card-img-top" alt="{{ blog.title }}" style="height:120px;object-fit:cover">
+        {% else %}
+          <div class="card-img bg-light d-flex align-items-center justify-content-center" style="height:100px">
+            <span style="font-size:32px;opacity:.4">📄</span>
+          </div>
+        {% endif %}
+        <div class="card-body">
+          <span class="badge badge-pill mb-2" style="background:#ede9fe;color:#4c1d95;font-size:11px">{{ blog.get_category_display }}</span>
+          <h6 class="font-weight-bold">{{ blog.title }}</h6>
+          <p class="text-secondary small">{{ blog.summary|truncatechars:100 }}</p>
+          <p class="text-muted" style="font-size:12px">
+            <i class="far fa-calendar-alt mr-1"></i>{{ blog.created_at|date:"d/m/Y" }}
+          </p>
+        </div>
+        <div class="card-footer bg-white border-0">
+
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+      <div class="empty-state">
+        <p>Không tìm thấy bài viết phù hợp</p>
+        <a href="{% url 'blog_list' %}" class="btn btn-outline-secondary btn-sm">Xoá tìm kiếm</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  <nav class="d-flex justify-content-center mt-4">
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if q %}&q={{ q }}{% endif %}">‹</a>
+        </li>
+      {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+        <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+          <a class="page-link" href="?page={{ num }}{% if q %}&q={{ q }}{% endif %}">{{ num }}</a>
+        </li>
+      {% endfor %}
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if q %}&q={{ q }}{% endif %}">›</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+{% endblock %}

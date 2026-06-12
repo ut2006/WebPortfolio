@@ -1,0 +1,206 @@
+/* ─── Base ─────────────────────────────────────────────────── */
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* ─── Home Section ──────────────────────────────────────────── */
+.home-section {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  padding: 100px 0 80px;
+  text-align: center;
+}
+
+.home-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid rgba(255,255,255,0.3);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+.home-avatar-placeholder {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: #e8e4fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  font-weight: 700;
+  color: #534AB7;
+  border: 5px solid rgba(255,255,255,0.2);
+}
+
+/* ─── Section Eyebrow ───────────────────────────────────────── */
+.section-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+/* ─── Portfolio Card ────────────────────────────────────────── */
+.portfolio-card {
+  transition: transform .3s ease, box-shadow .3s ease;
+  border: none;
+  border-radius: 10px;
+}
+.portfolio-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.15) !important;
+}
+.card-img-placeholder {
+  font-size: 40px;
+  opacity: .45;
+}
+
+/* ─── Skill Bar ─────────────────────────────────────────────── */
+.skill-bar-wrap {
+  height: 10px;
+  border-radius: 5px;
+}
+
+/* ─── Cert Item ─────────────────────────────────────────────── */
+.cert-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  background: #fff;
+  margin-bottom: 10px;
+}
+.cert-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: #f2f0ea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+/* ─── Value List ────────────────────────────────────────────── */
+.value-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+}
+.value-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #999;
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+/* ─── Chip ──────────────────────────────────────────────────── */
+.chip {
+  font-size: 13px;
+  padding: 6px 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  color: #555;
+  display: inline-block;
+  margin: 4px 2px;
+}
+
+/* ─── Filter Chip ───────────────────────────────────────────── */
+.filter-chip {
+  font-size: 13px;
+  padding: 6px 14px;
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+  cursor: pointer;
+  background: #fff;
+  color: #555;
+  transition: all .15s;
+  white-space: nowrap;
+  display: inline-block;
+  margin: 3px 2px;
+  text-decoration: none;
+}
+.filter-chip:hover {
+  border-color: #ccc;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+.filter-chip.active {
+  background: #1a1a1a;
+  color: #fff;
+  border-color: #1a1a1a;
+}
+
+/* ─── Contact ───────────────────────────────────────────────── */
+.contact-icon-box {
+  width: 36px;
+  height: 36px;
+  background: #f2f0ea;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* ─── Social Buttons ────────────────────────────────────────── */
+.social-btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #555;
+  text-decoration: none;
+  transition: all .15s;
+  margin-right: 6px;
+}
+.social-btn:hover {
+  background: #f2f0ea;
+  border-color: #ccc;
+  color: #1a1a1a;
+}
+
+/* ─── Back Button ───────────────────────────────────────────── */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  padding: 6px 0;
+  background: none;
+  border: none;
+  margin-bottom: 16px;
+  text-decoration: none;
+}
+.back-btn:hover { color: #1a1a1a; text-decoration: none; }
+
+/* ─── Empty State ───────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: #999;
+}
+
+/* ─── Gap utility (Bootstrap 4 compat) ─────────────────────── */
+.gap-2 > * { margin-right: 6px; }

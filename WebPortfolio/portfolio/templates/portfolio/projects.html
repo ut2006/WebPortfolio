@@ -1,0 +1,94 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %}Dự án | Portfolio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <a href="{% url 'home' %}" class="back-btn">← Về trang chủ</a>
+  <h2 class="font-weight-bold text-dark mb-1">Tất cả dự án</h2>
+  <p class="text-muted mb-4">Toàn bộ dự án đã thực hiện - lọc và tìm kiếm theo nhu cầu</p>
+
+  <!-- Filters -->
+  <form method="GET" class="mb-4">
+    <div class="d-flex flex-wrap align-items-center mb-3 gap-2">
+      <a href="{% url 'project_list' %}" class="filter-chip {% if not category and not ptype %}active{% endif %}">Tất cả</a>
+      {% for val, label in categories %}
+        <a href="?category={{ val }}{% if ptype %}&type={{ ptype }}{% endif %}{% if q %}&q={{ q }}{% endif %}"
+           class="filter-chip {% if category == val %}active{% endif %}">{{ label }}</a>
+      {% endfor %}
+      {% for val, label in types %}
+        <a href="?{% if category %}category={{ category }}&{% endif %}type={{ val }}{% if q %}&q={{ q }}{% endif %}"
+           class="filter-chip {% if ptype == val %}active{% endif %}">{{ label }}</a>
+      {% endfor %}
+    </div>
+    <div class="input-group" style="max-width:500px">
+      <input type="text" name="q" value="{{ q }}" class="form-control"
+             placeholder="Tìm kiếm theo tên, công nghệ...">
+      {% if category %}<input type="hidden" name="category" value="{{ category }}">{% endif %}
+      {% if ptype %}<input type="hidden" name="type" value="{{ ptype }}">{% endif %}
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+      </div>
+    </div>
+  </form>
+
+  <p class="text-muted small mb-3">
+    {% if total > 0 %}Tìm thấy {{ total }} dự án{% endif %}
+  </p>
+
+  <!-- Grid -->
+  <div class="row">
+    {% for project in page_obj %}
+    <div class="col-12 col-sm-6 col-md-4 mb-4">
+      <div class="card h-100 shadow-sm portfolio-card">
+        {% if project.thumbnail %}
+          <img src="{{ project.thumbnail.url }}" class="card-img-top" alt="{{ project.title }}" style="height:160px;object-fit:cover">
+        {% else %}
+          <div class="card-img bg-light d-flex align-items-center justify-content-center" style="height:120px">
+            <span class="card-img-placeholder">🗂</span>
+          </div>
+        {% endif %}
+        <div class="card-body">
+          <h6 class="font-weight-bold text-dark">{{ project.title }}</h6>
+          <span class="badge badge-pill" style="background:#dbeafe;color:#1e40af;font-size:11px">{{ project.category }}</span>
+          <p class="text-muted small mt-2 mb-1">{{ project.get_project_type_display }} · {{ project.year }}</p>
+          <p class="text-muted small mb-0"><i class="fas fa-tools mr-1"></i>{{ project.tools_used }}</p>
+        </div>
+        <div class="card-footer bg-white border-0">
+          
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+      <div class="empty-state">
+        <p>Không tìm thấy dự án phù hợp</p>
+        <a href="{% url 'project_list' %}" class="btn btn-outline-secondary btn-sm">Xoá bộ lọc</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  <nav class="d-flex justify-content-center mt-4">
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if category %}&category={{ category }}{% endif %}{% if ptype %}&type={{ ptype }}{% endif %}{% if q %}&q={{ q }}{% endif %}">‹</a>
+        </li>
+      {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+        <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+          <a class="page-link" href="?page={{ num }}{% if category %}&category={{ category }}{% endif %}{% if ptype %}&type={{ ptype }}{% endif %}{% if q %}&q={{ q }}{% endif %}">{{ num }}</a>
+        </li>
+      {% endfor %}
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if category %}&category={{ category }}{% endif %}{% if ptype %}&type={{ ptype }}{% endif %}{% if q %}&q={{ q }}{% endif %}">›</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+{% endblock %}
